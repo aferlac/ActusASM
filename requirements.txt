@@ -1,4 +1,4 @@
 pandas
 streamlit 
 plotly.express
-plotly.grapg_objects
+plotly.graph_objects
