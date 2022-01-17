@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 # Configuration de la page
 st.set_page_config(page_title=" 14 saisons d'actus sur www.asm-rugby.com - A.Ferlac ",
                    layout='centered',
-                   initial_sidebar_state='collapsed')
+                   initial_sidebar_state='auto')
 st.markdown(
     """
     <style>
@@ -24,25 +24,17 @@ background_color = '#FFFFC2'
 
 # Chargement des dataframes contenant les données
 # Actus nettoyées et processées
-@st.cache(suppress_st_warning=True)
-def load_data_date(fichier):
-        return(pd.read_csv(fichier, index_col=0, parse_dates=['date']))
-
-@st.cache(suppress_st_warning=True)
-def load_data(fichier):
-        return(pd.read_csv(fichier, index_col=0))
-
-df1 = load_data_date('/.actus_asm_cleaned_1.csv')
-df2 = load_data('/.actus_asm_cleaned_2.csv')
+df1 = pd.read_csv('/.actus_asm_cleaned_1.csv', index_col=0, parse_dates=['date'])
+df2 = pd.read_csv('/.actus_asm_cleaned_2.csv', index_col=0)
 df=df1.join(df2)
 # Actus regroupées par mois sur les 14 saisons
-df_douzemois = load_data('/.moyenne_articles_mois.csv')
+df_douzemois = pd.read_csv('/.moyenne_articles_mois.csv', index_col=0)
 # Actus regroupées par mois de l'année
-df_stat_mois = load_data('/.stat_articles_mois.csv')
+df_stat_mois = pd.read_csv('/.stat_articles_mois.csv', index_col=0)
 # Actus regroupées par jour de la semaine
-df_stat_semaine = load_data('/.moyenne_articles_jour.csv')
+df_stat_semaine = pd.read_csv('/.moyenne_articles_jour.csv', index_col=0)
 # Nombre de citations par joueur et par saison
-df_joueurasm_actu = load_data('/.joueur_actuASM_saison.csv')
+df_joueurasm_actu = pd.read_csv('/.joueur_actuASM_saison.csv', index_col=0)
 
 # Début de la présentation
 st.title("14 saisons d'actus sur www.asm-rugby.com")
