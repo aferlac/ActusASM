@@ -6,28 +6,6 @@ import pandas as pd
 import plotly.express as px 
 import plotly.graph_objects as go
 
-# Chargement des dataframes contenant les données
-# Actus nettoyées et processées
-@st.cache(suppress_st_warning=True)
-def load_data_date(fichier):
-        return(pd.read_csv(fichier, index_col=0, parse_dates=['date']))
-
-@st.cache(suppress_st_warning=True)
-def load_data(fichier):
-        return(pd.read_csv(fichier, index_col=0))
-
-df1 = load_data_date('./actus_asm_cleaned_1.csv')
-df2 = load_data('./actus_asm_cleaned_2.csv')
-df=df1.join(df2)
-# Actus regroupées par mois sur les 14 saisons
-df_douzemois = load_data('./moyenne_articles_mois.csv')
-# Actus regroupées par mois de l'année
-df_stat_mois = load_data('./stat_articles_mois.csv')
-# Actus regroupées par jour de la semaine
-df_stat_semaine = load_data('./moyenne_articles_jour.csv')
-# Nombre de citations par joueur et par saison
-df_joueurasm_actu = load_data('./joueur_actuASM_saison.csv')
-
 # Configuration de la page
 st.set_page_config(page_title=" 14 saisons d'actus sur www.asm-rugby.com - A.Ferlac ",
                    layout='centered',
@@ -43,6 +21,28 @@ st.markdown(
     unsafe_allow_html=True
     )
 background_color = '#FFFFC2'
+
+# Chargement des dataframes contenant les données
+# Actus nettoyées et processées
+@st.cache(suppress_st_warning=True)
+def load_data_date(fichier):
+        return(pd.read_csv(fichier, index_col=0, parse_dates=['date']))
+
+@st.cache(suppress_st_warning=True)
+def load_data(fichier):
+        return(pd.read_csv(fichier, index_col=0))
+
+df1 = load_data_date('/.actus_asm_cleaned_1.csv')
+df2 = load_data('/.actus_asm_cleaned_2.csv')
+df=df1.join(df2)
+# Actus regroupées par mois sur les 14 saisons
+df_douzemois = load_data('/.moyenne_articles_mois.csv')
+# Actus regroupées par mois de l'année
+df_stat_mois = load_data('/.stat_articles_mois.csv')
+# Actus regroupées par jour de la semaine
+df_stat_semaine = load_data('/.moyenne_articles_jour.csv')
+# Nombre de citations par joueur et par saison
+df_joueurasm_actu = load_data('/.joueur_actuASM_saison.csv')
 
 # Début de la présentation
 st.title("14 saisons d'actus sur www.asm-rugby.com")
