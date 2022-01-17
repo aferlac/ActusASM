@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 @st.cache(suppress_st_warning=True)
 def load_data_date(fichier):
         return(pd.read_csv(fichier, index_col=0, parse_dates=['date']))
-        
+
 @st.cache(suppress_st_warning=True)
 def load_data(fichier):
         return(pd.read_csv(fichier, index_col=0))
@@ -31,7 +31,7 @@ df_joueurasm_actu = load_data('./joueur_actuASM_saison.csv')
 # Configuration de la page
 st.set_page_config(page_title=" 14 saisons d'actus sur www.asm-rugby.com - A.Ferlac ",
                    layout='centered',
-                   initial_sidebar_state='auto')
+                   initial_sidebar_state='collapsed')
 st.markdown(
     """
     <style>
