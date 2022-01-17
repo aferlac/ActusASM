@@ -24,17 +24,17 @@ background_color = '#FFFFC2'
 
 # Chargement des dataframes contenant les données
 # Actus nettoyées et processées
-df1 = pd.read_csv('/.actus_asm_cleaned_1.csv', index_col=0, parse_dates=['date'])
-df2 = pd.read_csv('/.actus_asm_cleaned_2.csv', index_col=0)
+df1 = pd.read_csv('./actus_asm_cleaned_1.csv', index_col=0, parse_dates=['date'])
+df2 = pd.read_csv('./actus_asm_cleaned_2.csv', index_col=0)
 df=df1.join(df2)
 # Actus regroupées par mois sur les 14 saisons
-df_douzemois = pd.read_csv('/.moyenne_articles_mois.csv', index_col=0)
+df_douzemois = pd.read_csv('./moyenne_articles_mois.csv', index_col=0)
 # Actus regroupées par mois de l'année
-df_stat_mois = pd.read_csv('/.stat_articles_mois.csv', index_col=0)
+df_stat_mois = pd.read_csv('./stat_articles_mois.csv', index_col=0)
 # Actus regroupées par jour de la semaine
-df_stat_semaine = pd.read_csv('/.moyenne_articles_jour.csv', index_col=0)
+df_stat_semaine = pd.read_csv('./moyenne_articles_jour.csv', index_col=0)
 # Nombre de citations par joueur et par saison
-df_joueurasm_actu = pd.read_csv('/.joueur_actuASM_saison.csv', index_col=0)
+df_joueurasm_actu = pd.read_csv('./joueur_actuASM_saison.csv', index_col=0)
 
 # Début de la présentation
 st.title("14 saisons d'actus sur www.asm-rugby.com")
