@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px 
 import plotly.graph_objects as go
+from PIL import Image
 
 # Configuration de la page
 st.set_page_config(page_title=" 14 saisons d'actus sur www.asm-rugby.com - A.Ferlac ",
@@ -36,13 +37,19 @@ df_stat_semaine = pd.read_csv('./moyenne_articles_jour.csv', index_col=0)
 # Nombre de citations par joueur et par saison
 df_joueurasm_actu = pd.read_csv('./joueur_actuASM_saison.csv', index_col=0)
 
+image = Image.open('drapeau_asm.jpg')
+
 # Début de la présentation
 st.title("QUATORZE SAISONS D'ACTUS SUR LE SITE DE L'ASM")
 st.subheader("Analyse des articles issus de www.asm-rugby.com")
-st.write("""
-Depuis septembre 2008, plus de **6400 articles** ont été diffusés sur le site du l'ASM. 
+col1, col2 = st.columns([1,0.5])
+col2.image(Image.open("drapeau_asm.jpg"), use_column_width=True, caption='drapeau_asm')
+
+col1.write("""
+Depuis septembre 2008, plus de **6400 articles** ont été diffusés sur le site du l'ASM.\n 
 Ils contiennent l'histoire officielle des dernières années de ce club historique du rugby français. \n
-Une opération de webscrapping a permis de récupérer la date, le titre, 
+Mais au delà du texte et des images, que racontent ces articles ?""")
+st.write("""Une opération de webscrapping a permis de récupérer la date, le titre, 
 le texte de chaque actu ainsi que la catégorie de l'actu et la présence ou non de photo ou vidéo dans l'article.\n
 Après la nécessaire opération de nettoyage des données (suppression des actus en double et en japonais), 
 un data processing a permis d'ajouter la longueur (nombre de caractères et de mots) du titre et de l'article, 
@@ -207,7 +214,7 @@ A['joueur']=A.index
 B=df_joueurasm_actu.groupby('joueur').sum().sort_values(by='occurence_texte',ascending=True).tail(10)
 B['joueur']=B.index
 fig7 = px.bar(A, y='joueur', x="occurence_titre", orientation='h',
-             title='Les 10 joueurs les plus cités dans le titre depuis 2008',
+             title="Les 10 joueurs les plus cités dans le titre de l'actu depuis 2008",
              labels={'joueur':'','occurence_titre':'Nombre de citations'},
              hover_data={'joueur':False,
                          'occurence_titre':True,
@@ -216,7 +223,7 @@ fig7 = px.bar(A, y='joueur', x="occurence_titre", orientation='h',
             )
 fig7.update_layout(paper_bgcolor=background_color, plot_bgcolor='#d7fffe')
 fig8 = px.bar(B, y='joueur', x="occurence_texte", orientation='h',
-             title='Les 10 joueurs les plus cités dans le texte depuis 2008',
+             title="Les 10 joueurs les plus cités dans le texte de l'actu depuis 2008",
              labels={'joueur':'','occurence_texte':'Nombre de citations'},
              hover_data={'joueur':False,
                          'occurence_texte':True,
@@ -233,11 +240,12 @@ st.subheader('Et chaque saison ?')
 saison = st.selectbox(
      'Choisir une saison',
      ('2008-2009', '2009-2010','2010-2011','2011-2012','2012-2013','2013-2014','2014-2015',
-      '2015-2016','2016-2017','2017-2018','2018-2019','2019-2020','2020-2021','2021-2022'))
+      '2015-2016','2016-2017','2017-2018','2018-2019','2019-2020','2020-2021','2021-2022'),
+      index=8)
 selec_titre = df_joueurasm_actu[df_joueurasm_actu['saison']==saison].sort_values(by='occurence_titre', ascending=True).tail(10)
 selec_texte = df_joueurasm_actu[df_joueurasm_actu['saison']==saison].sort_values(by='occurence_texte', ascending=True).tail(10)
-title_titre = 'Les 10 joueurs les plus cités dans le titre en '+ saison
-title_texte = 'Les 10 joueurs les plus cités dans le texte en '+ saison
+title_titre = "Les 10 joueurs les plus cités dans le titre de l'actu en "+ saison
+title_texte = "Les 10 joueurs les plus cités dans le texte de l'actu en "+ saison
 fig9 = px.bar(selec_titre, y='joueur', x="occurence_titre", orientation='h',
              title=title_titre,
              labels={'joueur':'','occurence_titre':'Nombre de citations'},
