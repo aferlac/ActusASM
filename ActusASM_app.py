@@ -37,7 +37,8 @@ df_stat_semaine = pd.read_csv('./moyenne_articles_jour.csv', index_col=0)
 df_joueurasm_actu = pd.read_csv('./joueur_actuASM_saison.csv', index_col=0)
 
 # Début de la présentation
-st.title("14 saisons d'actus sur www.asm-rugby.com")
+st.title("QUATORZE SAISONS D'ACTUS SUR LE SITE DE L'ASM")
+st.header("Analyse des articles issus de www.asm-rugby.com")
 st.write("""
 Depuis septembre 2008, plus de **6400 articles** ont été diffusés sur le site du l'ASM. 
 Ils contiennent l'histoire officielle des dernières années de ce club historique du rugby français. \n
